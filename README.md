@@ -4,44 +4,29 @@ PyPine
 Introduction
 ------------
 
-This python module ...
+PyPine This is a Python based build and processing framework.
 
 Information about this module can be found here:
 
-* [github.org](https://github.com/jkpubsrc/....)
-* [pypi.python.org](https://pypi.python.org/pypi/PyPine)
+* [github.org](https://github.com/jkpubsrc/PyPine)
+* [pypi.python.org](https://pypi.python.org/pypi/pypine)
 
-Why this module?
-----------------
+Installation
+-------------------
 
-...
+More information coming soon.
 
-Limitations of this module
---------------------------
+Documentation
+-------------------
 
-...
-
-How to use this module
-----------------------
-
-### Import this module
-
-Please include this module into your application using the following code:
-
-```python
-import PyPine
-```
-
-...
+More information coming soon.
 
 Contact Information
 -------------------
 
-This work is Open Source. This enables you to use this work for free.
+Author(s):
 
-Please have in mind this also enables you to contribute. We, the subspecies of software developers, can create great things. But the more collaborate, the more fantastic these things can become. Therefore Feel free to contact the author(s) listed below, either for giving feedback, providing comments, hints, indicate possible collaborations, ideas, improvements. Or maybe for "only" reporting some bugs:
-
-* Jürgen Knauth: jknauth@uni-goettingen.de, pubsrc@binary-overflow.de
+* Jürgen Knauth: pubsrc@binary-overflow.de
 
 License
 -------
