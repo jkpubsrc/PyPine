@@ -79,6 +79,7 @@ class FileWriter(AbstractProcessor):
 
 		os.makedirs(absDirPath, exist_ok=True)
 
+		ctx.printDetail(self, "Writing: " + f.relFilePath)
 		absFilePath = os.path.join(absDirPath, f.fileName)
 		with open(absFilePath, "wb") as fout:
 			fout.write(f.readBinary())

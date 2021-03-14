@@ -13,7 +13,7 @@
 		"keywords": [
 			"pypine", "build",
 		],
-		"description": "A Python based build and processing framework.",
+		"description": "A Python based build and data processing framework.",
 		"authors": [
 			{
 				"name": "Jürgen Knauth",

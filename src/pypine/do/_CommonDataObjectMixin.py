@@ -47,7 +47,8 @@ class _CommonDataObjectMixin():
 
 	@property
 	def fileNameWithoutExt(self) -> str:
-		return self.fileName[:len(self.fileExt)]
+		ext = self.fileExt
+		return self.fileName[:-len(ext)]
 	#
 
 	@property
@@ -64,7 +65,8 @@ class _CommonDataObjectMixin():
 
 	@property
 	def relFilePathWithoutExt(self) -> str:
-		return self.relFilePath[:len(self.fileExt)]
+		ext = self.fileExt
+		return self.relFilePath[:-len(ext)]
 	#
 
 #
