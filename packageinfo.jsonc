@@ -1,0 +1,70 @@
+{
+	"magic": {
+		"magic": "packageinfo",
+		"version": 2,
+	},
+	"meta": {
+		"name": "pypine",
+		"version": "0.2021.3.14",
+		"packageClass": "python-module",
+		"language": "python3",
+		"development_status": "alpha",
+		"license": "Apache2",
+		"keywords": [
+			"pypine", "build",
+		],
+		"description": "Tool for scripting build tasks and other data processing tasks.",
+		"authors": [
+			{
+				"name": "Jürgen Knauth",
+				"email": "pubsrc@binary-overflow.de"
+			}
+		],
+	},
+	"requirements": {
+		"python_packages": [
+			"jk_typing",
+			"jk_prettyprintobj",
+			"jk_pathpatternmatcher2",
+			"jk_argparsing",
+		],
+		"python_packages_dev": [
+		],
+		"system_apt_packages": [
+		],
+	},
+	"source": {
+		"packages": [
+			"pypine",
+			"pypine.do",
+			"pypine.utils",
+			"pypine.processors_core",
+		],
+		"extra_data_files": [
+		],
+		"extra_binary_files": [
+			"bin/pypine.py",
+		]
+	},
+	"documentation": [
+		/*
+		"wiki": {
+			"page": "DevDocs:pypine"
+		}
+		*/
+	],
+	"repositories": [
+		{
+			"type": "github",
+			"user": "jkpubsrc",
+			"project": "........",
+			"devon_publish": false
+		},
+		{
+			"type": "pypi",
+			"project": "........",
+			"devon_publish": false
+		}
+	],
+}
+
