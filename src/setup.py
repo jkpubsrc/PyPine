@@ -23,7 +23,7 @@ setup(
 		"License :: OSI Approved :: Apache Software License",
 		"Programming Language :: Python :: 3",
 	],
-	description = "Tool for scripting build tasks and other data processing tasks.",
+	description = "A Python based build and processing framework.",
 	include_package_data = False,
 	install_requires = [
 		"jk_typing",
