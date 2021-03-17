@@ -18,6 +18,30 @@ class _CommonDataObjectMixin():
 	## Public Properties
 	################################################################################################################################
 
+	@property
+	def fileNameWithoutExt(self) -> str:
+		ext = self.fileExt
+		return self.fileName[:-len(ext)]
+	#
+
+	@property
+	def fileExt(self) -> str:
+		baseFileName, ext = self.__splitExt(self.fileName)
+
+		if ext in ( ".gz", ".bz2", ".xz" ):
+			baseFileName2, ext2 = self.__splitExt(baseFileName)
+			if ext2 == ".tar":
+				return ".tar" + ext
+
+		return ext
+	#
+
+	@property
+	def relFilePathWithoutExt(self) -> str:
+		ext = self.fileExt
+		return self.relFilePath[:-len(ext)]
+	#
+
 	################################################################################################################################
 	## Helper Methods
 	################################################################################################################################
@@ -45,28 +69,12 @@ class _CommonDataObjectMixin():
 	## Public Methods
 	################################################################################################################################
 
-	@property
-	def fileNameWithoutExt(self) -> str:
-		ext = self.fileExt
-		return self.fileName[:-len(ext)]
+	def __str__(self):
+		return "{}<({} :: {})>".format(self.__class__.__name__, repr(self.relFilePath), self.fileTypeInfo)
 	#
 
-	@property
-	def fileExt(self) -> str:
-		baseFileName, ext = self.__splitExt(self.fileName)
-
-		if ext in ( ".gz", ".bz2", ".xz" ):
-			baseFileName2, ext2 = self.__splitExt(baseFileName)
-			if ext2 == ".tar":
-				return ".tar" + ext
-
-		return ext
-	#
-
-	@property
-	def relFilePathWithoutExt(self) -> str:
-		ext = self.fileExt
-		return self.relFilePath[:-len(ext)]
+	def __repr__(self):
+		return "{}<({} :: {})>".format(self.__class__.__name__, repr(self.relFilePath), self.fileTypeInfo)
 	#
 
 #

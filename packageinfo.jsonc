@@ -5,7 +5,7 @@
 	},
 	"meta": {
 		"name": "pypine",
-		"version": "0.2021.3.17",
+		"version": "0.2021.3.17.1",
 		"packageClass": "python-module",
 		"language": "python3",
 		"development_status": "alpha",
@@ -32,6 +32,7 @@
 			"jk_pathpatternmatcher2",
 			"jk_argparsing",
 			"jk_pypiorgapi",
+			"jk_utils",
 		],
 		"python_packages_dev": [
 		],

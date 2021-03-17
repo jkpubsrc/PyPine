@@ -35,6 +35,7 @@ setup(
 		"jk_pathpatternmatcher2",
 		"jk_argparsing",
 		"jk_pypiorgapi",
+		"jk_utils",
 	],
 	keywords = [
 		"pypine",
@@ -52,7 +53,7 @@ setup(
 	scripts = [
 		"bin/pypinectrl.py",
 	],
-	version = "0.2021.3.17",
+	version = "0.2021.3.17.1",
 	zip_safe = False,
 	long_description = readme(),
 	long_description_content_type="text/markdown",

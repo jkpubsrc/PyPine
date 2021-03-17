@@ -5,3 +5,4 @@ src/*.egg-info/
 .vscode
 examples/*.log
 notes/
+src/build/
