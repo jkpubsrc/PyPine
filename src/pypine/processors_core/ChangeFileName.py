@@ -4,13 +4,9 @@
 
 import os
 import typing
+import re
 
 import jk_typing
-import jk_utils
-import jk_logging
-import jk_json
-import jk_prettyprintobj
-
 
 from ..FileTypeInfo import FileTypeInfo
 from ..do.DiskFile import DiskFile
@@ -32,19 +28,45 @@ class ChangeFileName(AbstractProcessor):
 	#
 	# Constructor method.
 	#
+	@jk_typing.checkFunctionSignature()
 	def __init__(self,
-		replaceNameWithIndex:bool = False,
-		setExt:str = False,
+			removeEnumerationPrefix:bool = False,
+			replaceNameWithIndex:typing.Union[bool,int] = False,
+			setExt:typing.Union[bool,str] = False,
 		):
 
 		super().__init__()
 
-		self.__replaceNameWithIndex = replaceNameWithIndex
-		self.__i = 0
+		# ----
+
+		self.__removeEnumerationPrefix = None
+		if (removeEnumerationPrefix is not None) and (removeEnumerationPrefix is not False):
+			assert isinstance(removeEnumerationPrefix, bool)
+			if removeEnumerationPrefix:
+				self.__removeEnumerationPrefix = True
+
+		# ----
+
+		self.__replaceNameWithIndex = None
+		if (replaceNameWithIndex is not None) and (replaceNameWithIndex is not False):
+			if isinstance(replaceNameWithIndex, bool):
+				if replaceNameWithIndex:
+					self.__replaceNameWithIndex = 0
+				else:
+					self.__replaceNameWithIndex = None
+			elif isinstance(replaceNameWithIndex, int):
+				assert replaceNameWithIndex >= 0
+				self.__replaceNameWithIndex = replaceNameWithIndex
+			else:
+				raise TypeError("replaceNameWithIndex")
+		self.__replaceNameWithIndexI = None
+
+		# ----
+
 		if (setExt is not None) and (setExt is not False):
+			assert isinstance(setExt, str)
 			assert setExt.startswith(".")
 		self.__setExt = setExt
-		self.__i = None
 	#
 
 	################################################################################################################################
@@ -60,31 +82,41 @@ class ChangeFileName(AbstractProcessor):
 	################################################################################################################################
 
 	def initializeProcessing(self, ctx:Context):
-		if (self.__replaceNameWithIndex is not None) and (self.__replaceNameWithIndex is not False):
-			self.__i = None
-		else:
-			self.__i = self.__replaceNameWithIndex
+		if self.__replaceNameWithIndex is not None:
+			self.__replaceNameWithIndexI = self.__replaceNameWithIndex
 	#
 
 	def processElement(self, ctx:Context, f):
 		f2 = ctx.toInMemoryFile(f)
+		_relDirPath = f.relDirPath
+		if _relDirPath:
+			_relDirPath += "/"
 
-		s = f.relDirPath
-		if s:
-			s += "/"
+		_fileNameWithoutExt = f.fileNameWithoutExt
+		_fileExt = f.fileExt
 
-		if (self.__replaceNameWithIndex is not None) and (self.__replaceNameWithIndex is not False):
-			s += str(self.__i)
-			self.__i += 1
-		else:
-			s += f.fileNameWithoutExt
+		# ----
 
-		if (self.__setExt is not None) and (self.__setExt is not False):
-			s += self.__setExt
-		else:
-			s += f.fileExt
+		if self.__removeEnumerationPrefix is not None:
+			m = re.match("^([0-9]+\s*)(-\s*)?(?P<fn>.*)$", _fileNameWithoutExt)
+			if m:
+				_fileNameWithoutExt = m.group("fn")
+				assert _fileNameWithoutExt
 
-		return InMemoryFile(s, f2.fileTypeInfo, f2.readText())
+		# ----
+
+		if self.__replaceNameWithIndex is not None:
+			_fileNameWithoutExt = str(self.__replaceNameWithIndexI)
+			self.__replaceNameWithIndexI += 1
+
+		# ----
+
+		if self.__setExt is not None:
+			_fileExt = self.__setExt
+		
+		# ----
+
+		return InMemoryFile(_relDirPath + _fileNameWithoutExt + _fileExt, f2.fileTypeInfo, f2.readText())
 	#
 
 #

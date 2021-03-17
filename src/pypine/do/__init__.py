@@ -1,12 +1,11 @@
 ﻿
 
 
-__version__ = "0.2021.3.14"
+__version__ = "0.2021.3.17"
 
 
 
 from .DiskFile import DiskFile
 from .InMemoryFile import InMemoryFile
-from .URL import URL
-
+from .URLFile import URLFile
 

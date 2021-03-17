@@ -1,26 +1,15 @@
 
 
-
-
 import os
-import typing
 
-import jk_typing
-import jk_utils
-import jk_logging
 import jk_json
-import jk_prettyprintobj
+import jk_flexdata
+import jk_logging
 
 
 
 
-
-
-
-
-class Spinner(object):
-
-	_CHARACTERS = "|/-\\"
+class PyPineXModuleInfo(object):
 
 	################################################################################################################################
 	## Constructor
@@ -29,9 +18,12 @@ class Spinner(object):
 	#
 	# Constructor method.
 	#
-	@jk_typing.checkFunctionSignature()
-	def __init__(self):
-		self.__n = 0
+	def __init__(self, dirPath:str, jInfo:dict):
+		self.name = os.path.basename(dirPath)
+		self.pypiorgName = self.name.replace("_", "-")
+		self.dirPath = dirPath
+		self.meta = jk_flexdata.FlexObject(jInfo["meta"])
+		self.compatibility = jk_flexdata.FlexObject(jInfo["compatibility"])
 	#
 
 	################################################################################################################################
@@ -46,25 +38,39 @@ class Spinner(object):
 	## Public Methods
 	################################################################################################################################
 
-	def show(self):
-		print(Spinner._CHARACTERS[self.__n] + "\r")
-		self.__n = (self.__n + 1) % 4
-	#
+	@staticmethod
+	def tryLoad(dirPath:str, log:jk_logging.AbstractLogger = None):
+		pypinexInfoFilePath = os.path.join(dirPath, "pypinex_info.json")
+		if not os.path.isfile(pypinexInfoFilePath):
+			return None
 
-	def hide(self):
-		print(" ")
+		moduleName = os.path.basename(dirPath)
+
+		try:
+			jData = jk_json.loadFromFile(pypinexInfoFilePath)
+		except Exception as ee:
+			if log:
+				log.error(ee)
+			return None
+
+		# check format
+
+		try:
+			if not jData["magic"]["magic"] == "pypinex-info":
+				raise Exception()
+			if jData["magic"]["version"] != 1:
+				raise Exception()
+		except Exception as ee:
+			if log:
+				log.error("Not a valid PyPine extension file!")
+			return None
+
+		# create instance of PyPineXModuleInfo
+
+		return PyPineXModuleInfo(dirPath, jData)
 	#
 
 #
-
-
-
-
-
-
-
-
-
 
 
 

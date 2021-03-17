@@ -3,20 +3,20 @@
 
 
 import os
-import typing
+import sys
+import json
 
-from ..FileTypeInfo import FileTypeInfo
-from ..do.DiskFile import DiskFile
-from ..do.InMemoryFile import InMemoryFile
-from ..Context import Context
-from ..AbstractProcessor import AbstractProcessor
+import jk_logging
+import jk_json
 
-
-
+from .PyPineXModuleInfo import PyPineXModuleInfo
+from .PyPineXSysInfo import PyPineXSysInfo
 
 
 
-class Cat(AbstractProcessor):
+
+
+class PyPineCmd_List(object):
 
 	################################################################################################################################
 	## Constructor
@@ -26,12 +26,22 @@ class Cat(AbstractProcessor):
 	# Constructor method.
 	#
 	def __init__(self):
-		super().__init__()
+		pass
 	#
 
 	################################################################################################################################
 	## Public Properties
 	################################################################################################################################
+
+	@property
+	def command(self) -> str:
+		return "list"
+	#
+
+	@property
+	def description(self) -> str:
+		return "List all installed PyPine extensions."
+	#
 
 	################################################################################################################################
 	## Helper Methods
@@ -41,27 +51,14 @@ class Cat(AbstractProcessor):
 	## Public Methods
 	################################################################################################################################
 
-	def processElement(self, ctx:Context, f):
-		ctx.printDetail(self, "=" * 120)
-		ctx.printDetail(self, ctx.__class__.__name__ + ": " + f.relFilePath)
-		ctx.printDetail(self, "Size: " + str(f.getFileSize()))
-		ctx.printDetail(self, "isBinary: " + str(f.isBinary))
-		ctx.printDetail(self, "isText: " + str(f.isText))
-		ctx.printDetail(self, "-" * 120)
-		if f.isText:
-			text = f.readText()
-			for s in text.split("\n"):
-				ctx.printDetail(self, s)
-		else:
-			ctx.printDetail(self, "(binary file)")
-		ctx.printDetail(self, "=" * 120)
-		return f
+	def run(self, log:jk_logging.AbstractLogger):
+		pypinexModuleList = PyPineXSysInfo.installedPackagesList(log)
+
+		for pi in pypinexModuleList:
+			print(pi.name, ":", pi.dirPath, ":", pi.meta.version)
 	#
 
 #
-
-
-
 
 
 

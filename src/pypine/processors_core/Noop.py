@@ -5,11 +5,7 @@
 import os
 import typing
 
-import jk_typing
-import jk_utils
-import jk_logging
-import jk_json
-import jk_prettyprintobj
+#import jk_typing
 
 
 from ..FileTypeInfo import FileTypeInfo
@@ -32,7 +28,7 @@ class Noop(AbstractProcessor):
 	#
 	# Constructor method.
 	#
-	def __init__(self, **kwargs):
+	def __init__(self):
 		super().__init__()
 	#
 

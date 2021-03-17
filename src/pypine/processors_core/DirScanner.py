@@ -7,10 +7,6 @@ import os
 import typing
 
 import jk_typing
-import jk_utils
-import jk_logging
-import jk_json
-import jk_prettyprintobj
 import jk_pathpatternmatcher2
 
 from ..FileTypeInfo import FileTypeInfo

@@ -6,12 +6,7 @@ import os
 import typing
 import io
 
-import jk_typing
-import jk_utils
-import jk_logging
-import jk_json
-import jk_prettyprintobj
-
+#import jk_typing
 
 from ..FileTypeInfo import FileTypeInfo
 from ..do.DiskFile import DiskFile
@@ -33,7 +28,7 @@ class Echo(AbstractProcessor):
 	#
 	# Constructor method.
 	#
-	def __init__(self, **kwargs):
+	def __init__(self):
 		super().__init__()
 	#
 

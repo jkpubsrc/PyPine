@@ -5,7 +5,7 @@
 	},
 	"meta": {
 		"name": "pypine",
-		"version": "0.2021.3.14",
+		"version": "0.2021.3.17",
 		"packageClass": "python-module",
 		"language": "python3",
 		"development_status": "alpha",
@@ -23,10 +23,15 @@
 	},
 	"requirements": {
 		"python_packages": [
+			"requests",
 			"jk_typing",
+			"jk_flexdata",
+			"jk_json",
+			"jk_logging",
 			"jk_prettyprintobj",
 			"jk_pathpatternmatcher2",
 			"jk_argparsing",
+			"jk_pypiorgapi",
 		],
 		"python_packages_dev": [
 		],
@@ -39,11 +44,12 @@
 			"pypine.do",
 			"pypine.utils",
 			"pypine.processors_core",
+			"pypine.pypinectrl_cli",
 		],
 		"extra_data_files": [
 		],
 		"extra_binary_files": [
-			"bin/pypine.py",
+			"bin/pypinectrl.py",
 		]
 	},
 	"documentation": [
