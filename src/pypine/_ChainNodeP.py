@@ -8,11 +8,13 @@ import jk_typing
 import jk_utils
 #import jk_prettyprintobj
 
+from .utils.TreeHelper import TreeHelper
 from ._INode import _INode
 from .EnumAction import EnumAction
 from .FileTypeInfo import FileTypeInfo
 from .Context import Context
 from .AbstractProcessor import AbstractProcessor
+from .utils.Color import Color
 
 
 
@@ -95,16 +97,19 @@ class _ChainNodeP(_INode):
 				yield ret
 	#
 
-	def _dump(self, prefix:str="", prefix2:str=""):
+	def _dump(self, th:TreeHelper):
 		s = self._processor.processorDetailsHR
 		if s:
-			s = self._processor.processorTypeName + "|" + s
+			s = Color.YELLOW + self._processor.processorTypeName + "⧼" + Color.WHITE + s + Color.YELLOW + "⧽"
 		else:
-			s = self._processor.processorTypeName
+			s = Color.YELLOW + self._processor.processorTypeName
 
-		print(prefix + "└─<" + s + ">")
+		print(Color.BLUE + th.toStr() + s + Color.RESET)
+
 		if self._prevChainNode:
-			self._prevChainNode._dump(prefix + "  ", prefix + "  ")
+			th = th.descend()
+			th.rightIsLast = True
+			self._prevChainNode._dump(th)
 	#
 
 	################################################################################################################################

@@ -6,7 +6,7 @@ class _TreeLevelComponent(object):
 
 	_ANGLE = "└─"
 	_BRANCH = "├─"
-	_PASS = "| "
+	_PASS = "│ "
 	_EMPTY = "  "
 
 	################################################################################################################################
@@ -61,9 +61,13 @@ class TreeHelper(object):
 	#
 	# Constructor method.
 	#
-	@jk_typing.checkFunctionSignature()
-	def __init__(self, levels:list):
+	def __init__(self, prefix:str, levels:list):
+		assert isinstance(prefix, str)
+		assert isinstance(levels, list)
+
+		self.__prefix = prefix
 		self.__levels = levels
+		self.rightIsLast = True
 	#
 
 	################################################################################################################################
@@ -81,17 +85,17 @@ class TreeHelper(object):
 	def descend(self):
 		levels = list(self.__levels)
 		levels.append(_TreeLevelComponent())
-		return TreeHelper(levels)
+		return TreeHelper(self.__prefix, levels)
 	#
 
-	def toStr(self, bIsLastBranch:bool) -> str:
+	def toStr(self) -> str:
 		if not self.__levels:
 			return ""
 
-		ret = []
+		ret = [ self.__prefix ]
 		for x in self.__levels[:-1]:
 			ret.append(x.toStr())
-		ret.append(self.__levels[-1].toStrLast(bIsLastBranch))
+		ret.append(self.__levels[-1].toStrLast(self.rightIsLast))
 		return "".join(ret)
 	#
 

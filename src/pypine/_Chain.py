@@ -13,7 +13,8 @@ from ._ChainNodeP import _ChainNodeP
 from ._Sequence import _Sequence
 from .Context import Context
 from .AbstractProcessor import AbstractProcessor
-
+from .utils.TreeHelper import TreeHelper
+from .utils.Color import Color
 
 
 
@@ -32,7 +33,6 @@ class _Chain(_INode):
 		assert processors
 		for x in processors:
 			assert isinstance(x, (AbstractProcessor, _Sequence))
-		self._processors = processors
 
 		# build processing chain
 
@@ -43,7 +43,7 @@ class _Chain(_INode):
 				previousNode = p
 			else:
 				previousNode = _ChainNodeP(previousNode, p)
-		self._nodes = previousNode
+		self.__node = previousNode
 	#
 
 	################################################################################################################################
@@ -54,9 +54,13 @@ class _Chain(_INode):
 	## Helper Methods
 	################################################################################################################################
 
-	def _dump(self, prefix:str="", prefix2:str=""):
-		print(prefix + "─Chain")
-		self._nodes._dump(prefix2 + " ")
+	def _dump(self, th:TreeHelper):
+		print(Color.BLUE + th.toStr() + "Chain" + Color.RESET)
+
+		th = th.descend()
+		th.rightIsLast = True
+
+		self.__node._dump(th)
 	#
 
 	################################################################################################################################
@@ -65,11 +69,11 @@ class _Chain(_INode):
 
 	@jk_typing.checkFunctionSignature()
 	def initialize(self, ctx:Context):
-		self._nodes.initialize(ctx)
+		self.__node.initialize(ctx)
 	#
 
 	def __call__(self, ctx:Context, f):
-		yield from self._nodes(ctx, f)
+		yield from self.__node(ctx, f)
 	#
 
 #

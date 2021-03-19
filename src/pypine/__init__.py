@@ -1,7 +1,7 @@
 ﻿
 
 
-__version__ = "0.2021.3.17.1"
+__version__ = "0.2021.3.19"
 
 
 
@@ -25,4 +25,3 @@ from._INode import _INode
 from ._ChainNodeP import _ChainNodeP
 from ._Sequence import _Sequence
 from ._Chain import _Chain
-

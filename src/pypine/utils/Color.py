@@ -1,0 +1,51 @@
+
+
+
+
+class Color:
+
+	RESET = "\033[0m"
+
+	BLACK = "\033[0;30m"
+	RED = "\033[0;31m"
+	GREEN = "\033[0;32m"
+	YELLOW = "\033[1;33m"
+	BLUE = "\033[1;34m"
+	MAGENTA = "\033[1;35m"
+	CYAN = "\033[1;36m"
+	WHITE = "\033[1;37m"
+
+	DARK_BLACK = "\033[38:5:0m"
+	DARK_RED = "\033[38:5:1m"
+	DARK_GREEN = "\033[38:5:2m"
+	DARK_YELLOW = "\033[38:5:3m"
+	DARK_BLUE = "\033[38:5:4m"
+	DARK_MAGENTA = "\033[38:5:5m"
+	DARK_CYAN = "\033[38:5:6m"
+	DARK_WHITE = "\033[38:5:7m"
+
+	LIGHT_BLACK = "\033[1;90m"
+	LIGHT_RED = "\033[1;91m"
+	LIGHT_GREEN = "\033[1;92m"
+	LIGHT_YELLOW = "\033[1;93m"
+	LIGHT_BLUE = "\033[1;94m"
+	LIGHT_MAGENTA = "\033[1;95m"
+	LIGHT_CYAN = "\033[1;96m"
+	LIGHT_WHITE = "\033[1;97m"
+
+#
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

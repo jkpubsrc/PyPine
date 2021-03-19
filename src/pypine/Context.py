@@ -14,40 +14,11 @@ import shutil
 import jk_typing
 #import jk_prettyprintobj
 
+from .utils.Color import Color
 from .do.DiskFile import DiskFile
 from .do.InMemoryFile import InMemoryFile
 
 
-
-
-
-_RESET = "\033[0m"
-_BLACK = "\033[0;30m"
-_RED = "\033[0;31m"
-_GREEN = "\033[0;32m"
-_YELLOW = "\033[1;33m"
-_BLUE = "\033[1;34m"
-_MAGENTA = "\033[1;35m"
-_CYAN = "\033[1;36m"
-_WHITE = "\033[1;37m"
-
-_DARK_BLACK = "\033[38:5:0m"
-_DARK_RED = "\033[38:5:1m"
-_DARK_GREEN = "\033[38:5:2m"
-_DARK_YELLOW = "\033[38:5:3m"
-_DARK_BLUE = "\033[38:5:4m"
-_DARK_MAGENTA = "\033[38:5:5m"
-_DARK_CYAN = "\033[38:5:6m"
-_DARK_WHITE = "\033[38:5:7m"
-
-_LIGHT_BLACK = "\033[1;90m"
-_LIGHT_RED = "\033[1;91m"
-_LIGHT_GREEN = "\033[1;92m"
-_LIGHT_YELLOW = "\033[1;93m"
-_LIGHT_BLUE = "\033[1;94m"
-_LIGHT_MAGENTA = "\033[1;95m"
-_LIGHT_CYAN = "\033[1;96m"
-_LIGHT_WHITE = "\033[1;97m"
 
 
 
@@ -113,7 +84,7 @@ class Context(object):
 		sCaller = (" " + getattr(caller, "processorTypeName", "")) if caller is not None else ""
 		if self.verbosityLevel > 0:
 			dt = datetime.datetime.now()
-			sPrefix = "{}{}[{:02d}:{:02d}:{:02d}]{}{}{}{}".format(self.__indent, _DARK_CYAN, dt.hour, dt.minute, dt.second, _RESET, _LIGHT_BLACK, sCaller, _RESET)
+			sPrefix = "{}{}[{:02d}:{:02d}:{:02d}]{}{}{}{}".format(self.__indent, Color.DARK_CYAN, dt.hour, dt.minute, dt.second, Color.RESET, Color.LIGHT_BLACK, sCaller, Color.RESET)
 		if args or kwargs:
 			print(sPrefix, message.format(*args, **kwargs))
 		else:
@@ -123,7 +94,7 @@ class Context(object):
 	def printDetail(self, caller, message:str, *args, **kwargs):
 		sCaller = (" " + getattr(caller, "processorTypeName", "")) if caller is not None else ""
 		dt = datetime.datetime.now()
-		sPrefix = "{}{}[{:02d}:{:02d}:{:02d}]{}{}{}{}".format(self.__indent, _DARK_CYAN, dt.hour, dt.minute, dt.second, _RESET, _LIGHT_BLACK, sCaller, _RESET)
+		sPrefix = "{}{}[{:02d}:{:02d}:{:02d}]{}{}{}{}".format(self.__indent, Color.DARK_CYAN, dt.hour, dt.minute, dt.second, Color.RESET, Color.LIGHT_BLACK, sCaller, Color.RESET)
 		if args or kwargs:
 			print(sPrefix, message.format(*args, **kwargs))
 		else:
@@ -132,8 +103,8 @@ class Context(object):
 
 	def printTaskBegin(self, message:str, *args, **kwargs):
 		dt = datetime.datetime.now()
-		sPrefix = "{}{}[{:02d}:{:02d}:{:02d}]{}".format(self.__indent, _DARK_CYAN, dt.hour, dt.minute, dt.second, _RESET)
-		print(sPrefix, _LIGHT_CYAN + message.format(*args, **kwargs) + _RESET)
+		sPrefix = "{}{}[{:02d}:{:02d}:{:02d}]{}".format(self.__indent, Color.DARK_CYAN, dt.hour, dt.minute, dt.second, Color.RESET)
+		print(sPrefix, Color.LIGHT_CYAN + message.format(*args, **kwargs) + Color.RESET)
 		self.__indent += "    "
 	#
 
@@ -143,22 +114,22 @@ class Context(object):
 		else:
 			raise Exception("No prior call to printTaskBegin()!")
 		dt = datetime.datetime.now()
-		sPrefix = "{}{}[{:02d}:{:02d}:{:02d}]{}".format(self.__indent, _DARK_CYAN, dt.hour, dt.minute, dt.second, _RESET)
-		print(sPrefix, _GREEN + message.format(*args, **kwargs) + _RESET)
+		sPrefix = "{}{}[{:02d}:{:02d}:{:02d}]{}".format(self.__indent, Color.DARK_CYAN, dt.hour, dt.minute, dt.second, Color.RESET)
+		print(sPrefix, Color.GREEN + message.format(*args, **kwargs) + Color.RESET)
 	#
 
 	def printError(self, caller, message:str, *args, **kwargs):
 		sCaller = (" " + getattr(caller, "processorTypeName", "")) if caller is not None else ""
 		dt = datetime.datetime.now()
-		sPrefix = "{}{}[{:02d}:{:02d}:{:02d}]{}{}{}{}".format(self.__indent, _DARK_CYAN, dt.hour, dt.minute, dt.second, _RESET, _LIGHT_BLACK, sCaller, _RESET)
-		print(sPrefix, _RED + "ERR: " + message.format(*args, **kwargs) + _RESET)
+		sPrefix = "{}{}[{:02d}:{:02d}:{:02d}]{}{}{}{}".format(self.__indent, Color.DARK_CYAN, dt.hour, dt.minute, dt.second, Color.RESET, Color.LIGHT_BLACK, sCaller, Color.RESET)
+		print(sPrefix, Color.RED + "ERR: " + message.format(*args, **kwargs) + Color.RESET)
 	#
 
 	def printWarning(self, caller, message:str, *args, **kwargs):
 		sCaller = (" " + getattr(caller, "processorTypeName", "")) if caller is not None else ""
 		dt = datetime.datetime.now()
-		sPrefix = "{}{}[{:02d}:{:02d}:{:02d}]{}{}{}{}".format(self.__indent, _DARK_CYAN, dt.hour, dt.minute, dt.second, _RESET, _LIGHT_BLACK, sCaller, _RESET)
-		print(sPrefix, _YELLOW + "WARN: " + message.format(*args, **kwargs) + _RESET)
+		sPrefix = "{}{}[{:02d}:{:02d}:{:02d}]{}{}{}{}".format(self.__indent, Color.DARK_CYAN, dt.hour, dt.minute, dt.second, Color.RESET, Color.LIGHT_BLACK, sCaller, Color.RESET)
+		print(sPrefix, Color.YELLOW + "WARN: " + message.format(*args, **kwargs) + Color.RESET)
 	#
 
 	################################################################################################################################

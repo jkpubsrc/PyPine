@@ -15,11 +15,10 @@ tasks = Tasks()
 
 
 
-tasks.add("hello_world", "A 'Hello, World!' PyPine script.",
-	core.constructChain(
+tasks.add("hello_world", "A 'Hello, World!' PyPine script.", [
 		core.src(".", "hello_world.txt"),
 		core.cat(),
-	)
+	]
 )
 
 

@@ -8,10 +8,12 @@ import typing
 import jk_typing
 #import jk_prettyprintobj
 
+from .utils.TreeHelper import TreeHelper
 from ._INode import _INode
 from ._ChainNodeP import _ChainNodeP
 from .Context import Context
 from .AbstractProcessor import AbstractProcessor
+from .utils.Color import Color
 
 
 
@@ -53,30 +55,17 @@ class _Sequence(_INode):
 	## Helper Methods
 	################################################################################################################################
 
-	def _dump(self, prefix:str, prefix2:str):
-		print(prefix + "└─Sequence")
+	def _dump(self, th:TreeHelper):
+		print(Color.BLUE + th.toStr() + "Sequence" + Color.RESET)
 
-		if self._prevChainNode is None:
-			prefix2 = prefix + "  ├"
-			prefix2b = prefix + "  │"
-			prefix3 = prefix + "  └"
-			prefix3b = prefix + "   "
-		else:
-			prefix2 = prefix + "  ├"
-			prefix2b = prefix + "  │"
-			prefix3 = prefix + "  └"
-			prefix3b = prefix + "   "
-
+		th = th.descend()
 		for i, node in enumerate(reversed(self._nodes)):
-			bLast = i == len(self._nodes) - 1
-			if not bLast:
-				node._dump(prefix2, prefix2b)
-			else:
-				node._dump(prefix3, prefix3b)
+			th.rightIsLast = (self._prevChainNode is None) and (i == len(self._nodes) - 1)
+			node._dump(th)
 
 		if self._prevChainNode is not None:
-			self._prevChainNode._dump(prefix + "  ", prefix + "  ")
-			pass
+			th.rightIsLast = True
+			self._prevChainNode._dump(th)
 	#
 
 	################################################################################################################################

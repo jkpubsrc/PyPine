@@ -11,7 +11,9 @@ import jk_typing
 
 from ._INode import _INode
 from .Context import Context
+from .utils.Color import Color
 from .utils.ObservableEvent import ObservableEvent
+from .utils.TreeHelper import TreeHelper
 
 
 
@@ -64,8 +66,11 @@ class Task(object):
 	################################################################################################################################
 
 	def dump(self):
-		print("Task:" + repr(self.__name))
-		self.__chain._dump("  └", "   ")
+		print(Color.LIGHT_CYAN + "Task:" + repr(self.__name) + Color.RESET)
+		th = TreeHelper("  ", [])
+		th = th.descend()
+		th.rightIsLast = True
+		self.__chain._dump(th)
 	#
 
 	@jk_typing.checkFunctionSignature()

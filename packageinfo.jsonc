@@ -5,7 +5,7 @@
 	},
 	"meta": {
 		"name": "pypine",
-		"version": "0.2021.3.17.1",
+		"version": "0.2021.3.19",
 		"packageClass": "python-module",
 		"language": "python3",
 		"development_status": "alpha",
