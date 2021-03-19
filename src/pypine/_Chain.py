@@ -9,7 +9,7 @@ import jk_typing
 #import jk_prettyprintobj
 
 from ._INode import _INode
-from ._ChainNode import _ChainNode
+from ._ChainNodeP import _ChainNodeP
 from ._Sequence import _Sequence
 from .Context import Context
 from .AbstractProcessor import AbstractProcessor
@@ -29,20 +29,25 @@ class _Chain(_INode):
 	# Constructor method.
 	#
 	def __init__(self, *processors):
+		print("----")
+		print(processors)
+		print("----")
+
 		assert processors
 		for x in processors:
-			assert isinstance(x, (AbstractProcessor, _INode))
+			assert isinstance(x, (AbstractProcessor, _Sequence))
 		self._processors = processors
 
 		# build processing chain
 
-		lastNode = None
+		previousNode = None
 		for p in processors:
-			if isinstance(p, AbstractProcessor):
-				lastNode = _ChainNode(lastNode, p)
+			if isinstance(p, _Sequence):
+				p._prevChainNode = previousNode
+				previousNode = p
 			else:
-				lastNode = p
-		self._nodes = lastNode
+				previousNode = _ChainNodeP(previousNode, p)
+		self._nodes = previousNode
 	#
 
 	################################################################################################################################
@@ -52,6 +57,11 @@ class _Chain(_INode):
 	################################################################################################################################
 	## Helper Methods
 	################################################################################################################################
+
+	def _dump(self, prefix:str="", prefix2:str=""):
+		print(prefix + "─Chain")
+		self._nodes._dump(prefix2 + " ")
+	#
 
 	################################################################################################################################
 	## Public Methods

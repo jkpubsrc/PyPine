@@ -61,6 +61,11 @@ class AbstractProcessor(object):
 	#
 
 	@property
+	def processorDetailsHR(self) -> str:
+		return None
+	#
+
+	@property
 	def actionIfUnprocessable(self) -> EnumAction:
 		return self._actionIfUnprocessable
 	#
@@ -86,6 +91,8 @@ class AbstractProcessor(object):
 	################################################################################################################################
 
 	def isProcessable(self, f) -> bool:
+		if f is None:
+			return False
 		pList = self.processableDataTypes()
 		if pList is None:
 			return True

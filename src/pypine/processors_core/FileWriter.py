@@ -42,6 +42,11 @@ class FileWriter(AbstractProcessor):
 	################################################################################################################################
 
 	@property
+	def processorDetailsHR(self) -> str:
+		return self.__outputDirPath
+	#
+
+	@property
 	def processorTypeName(self) -> str:
 		return "dest"
 	#

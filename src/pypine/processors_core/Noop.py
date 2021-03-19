@@ -44,6 +44,10 @@ class Noop(AbstractProcessor):
 	## Public Methods
 	################################################################################################################################
 
+	def isProcessable(self, f) -> bool:
+		return True
+	#
+
 	def processElement(self, ctx:Context, f):
 		return f
 	#

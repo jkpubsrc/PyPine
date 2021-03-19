@@ -12,9 +12,9 @@ import jk_argparsing
 
 
 from ._INode import _INode
+from ._Chain import _Chain
 from .Context import Context
 from .Task import Task
-
 
 
 
@@ -68,8 +68,10 @@ class Tasks(object):
 	#
 
 	@jk_typing.checkFunctionSignature()
-	def add(self, taskName:str, description:str, chain:_INode) -> Task:
+	def add(self, taskName:str, description:str, processors:typing.Union[tuple,list]) -> Task:
 		self.ensureValidTaskNameE(taskName)
+
+		chain = _Chain(*processors)
 		task = Task(taskName, chain)
 		self.__tasks[taskName] = description, task
 		return task

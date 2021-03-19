@@ -63,6 +63,11 @@ class Task(object):
 	## Public Methods
 	################################################################################################################################
 
+	def dump(self):
+		print("Task:" + repr(self.__name))
+		self.__chain._dump("  └", "   ")
+	#
+
 	@jk_typing.checkFunctionSignature()
 	def run(self, ctx:Context, taskName:str, f):
 		if taskName:

@@ -33,6 +33,8 @@ class DirScanner(AbstractProcessor):
 	def __init__(self, baseDirPath:str, *filePatterns, fileTypeInfo:FileTypeInfo = None):
 		super().__init__()
 
+		self.__processorDetailsHR = baseDirPath + ":" + ",".join(filePatterns)
+
 		assert filePatterns
 		for filePattern in filePatterns:
 			assert isinstance(filePattern, str)
@@ -56,6 +58,11 @@ class DirScanner(AbstractProcessor):
 		return "src"
 	#
 
+	@property
+	def processorDetailsHR(self) -> str:
+		return self.__processorDetailsHR
+	#
+
 	################################################################################################################################
 	## Helper Methods
 	################################################################################################################################
@@ -63,6 +70,10 @@ class DirScanner(AbstractProcessor):
 	################################################################################################################################
 	## Public Methods
 	################################################################################################################################
+
+	def isProcessable(self, f) -> bool:
+		return True
+	#
 
 	def initializeProcessing(self, ctx:Context):
 		self.__dirWalker = jk_pathpatternmatcher2.walk(
@@ -78,6 +89,9 @@ class DirScanner(AbstractProcessor):
 	#
 
 	def processElement(self, ctx:Context, f):
+		if f is not None:
+			yield f
+
 		for f in self.__dirWalker:
 			if self.__fileTypeInfo is None:
 				f.fileTypeInfo = FileTypeInfo.guessFromFileName(f.fileName)

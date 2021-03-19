@@ -7,6 +7,7 @@ import typing
 import io
 
 import jk_typing
+import jk_utils
 
 from ..ErrorMode import ErrorMode
 from ..FileTypeInfo import FileTypeInfo
@@ -42,6 +43,18 @@ class Delete(AbstractProcessor):
 	## Public Properties
 	################################################################################################################################
 
+	@property
+	def processorDetailsHR(self) -> str:
+		flags = [
+			"errModeDeleteFiles:" + str(self.__errModeDeleteFiles),
+			"errModeDeleteDirs:" + str(self.__errModeDeleteDirs),
+		]
+		if self.__bDeleteEmptyDirs:
+			flags.append("deleteEmptyDirs")
+
+		return ",".join(flags)
+	#
+
 	################################################################################################################################
 	## Helper Methods
 	################################################################################################################################
@@ -49,6 +62,10 @@ class Delete(AbstractProcessor):
 	################################################################################################################################
 	## Public Methods
 	################################################################################################################################
+
+	def isProcessable(self, f) -> bool:
+		return isinstance(f, DiskFile)
+	#
 
 	def initializeProcessing(self, ctx:Context):
 		self.__deleteDirectories = set()

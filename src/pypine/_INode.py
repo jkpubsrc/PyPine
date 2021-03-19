@@ -8,6 +8,8 @@ import typing
 import jk_typing
 #import jk_prettyprintobj
 
+from .Context import Context
+
 
 
 
@@ -31,7 +33,9 @@ class _INode:
 	## Public Methods
 	################################################################################################################################
 
-	pass
+	def initialize(self, ctx:Context):
+		raise NotImplementedError()
+	#
 
 #
 

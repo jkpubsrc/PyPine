@@ -44,6 +44,10 @@ class Echo(AbstractProcessor):
 	## Public Methods
 	################################################################################################################################
 
+	def isProcessable(self, f) -> bool:
+		return True
+	#
+
 	def processElement(self, ctx:Context, f):
 		ctx.printVerbose(self, str(f))
 		return f
