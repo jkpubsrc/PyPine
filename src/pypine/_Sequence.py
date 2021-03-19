@@ -57,19 +57,17 @@ class _Sequence(_INode):
 		print(prefix + "└─Sequence")
 
 		if self._prevChainNode is None:
-			print(prefix + "  └(group)")
-			prefix2 = prefix + "    ├"
-			prefix2b = prefix + "    │"
-			prefix3 = prefix + "    └"
-			prefix3b = prefix + "     "
+			prefix2 = prefix + "  ├"
+			prefix2b = prefix + "  │"
+			prefix3 = prefix + "  └"
+			prefix3b = prefix + "   "
 		else:
-			print(prefix + "  ├(group)")
-			prefix2 = prefix + "  │ ├"
-			prefix2b = prefix + "  │ │"
-			prefix3 = prefix + "  │ └"
-			prefix3b = prefix + "  │  "
+			prefix2 = prefix + "  ├"
+			prefix2b = prefix + "  │"
+			prefix3 = prefix + "  └"
+			prefix3b = prefix + "   "
 
-		for i, node in enumerate(self._nodes):
+		for i, node in enumerate(reversed(self._nodes)):
 			bLast = i == len(self._nodes) - 1
 			if not bLast:
 				node._dump(prefix2, prefix2b)
@@ -77,8 +75,7 @@ class _Sequence(_INode):
 				node._dump(prefix3, prefix3b)
 
 		if self._prevChainNode is not None:
-			print(prefix + "  └(provider)")
-			self._prevChainNode._dump(prefix + "    ", prefix + "    ")
+			self._prevChainNode._dump(prefix + "  ", prefix + "  ")
 			pass
 	#
 

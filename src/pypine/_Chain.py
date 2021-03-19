@@ -29,10 +29,6 @@ class _Chain(_INode):
 	# Constructor method.
 	#
 	def __init__(self, *processors):
-		print("----")
-		print(processors)
-		print("----")
-
 		assert processors
 		for x in processors:
 			assert isinstance(x, (AbstractProcessor, _Sequence))

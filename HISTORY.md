@@ -3,3 +3,10 @@
 
 * 2021-03-17
 	* Added main PyPine CLI
+
+* 2021-03-18
+	* Revision of the processing logic
+
+* 2021-03-19
+	* Revision of the processing logic
+
