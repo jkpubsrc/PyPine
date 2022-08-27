@@ -9,8 +9,8 @@ PyPine is a Python based build and processing framework.
 Information about this module can be found here:
 
 * [pypine.binary-overflow.de](https://pypine.binary-overflow.de)
-* [github.org :: PyPine](https://github.com/jkpubsrc/PyPine)
-* [github.org :: PyPine_Examples](https://github.com/jkpubsrc/PyPine_Examples)
+* [github.com :: PyPine](https://github.com/jkpubsrc/PyPine)
+* [github.com :: PyPine_Examples](https://github.com/jkpubsrc/PyPine_Examples)
 * [pypi.python.org :: pypine](https://pypi.python.org/pypi/pypine)
 
 Installation
